@@ -30,22 +30,28 @@ public class Trie
     public bool Insert(string word)
     {
         TrieNode current = root;
+        // For each character in the word
         foreach (char c in word)
         {
+            // If the current node does not have the character as a child
             if (!current.HasChild(c))
             {
+                // Add the character as a child
                 current.Children[c] = new TrieNode(c);
             }
             current = current.Children[c];
         }
+        // If the current node is already the end of a word
         if (current.IsEndOfWord)
         {
+            // The word is already in the trie
             return false;
         }
+        // Mark the current node as the end of a word
         current.IsEndOfWord = true;
         return true;
     }
-    
+
     public List<string> AutoSuggest(string prefix)
     {
         TrieNode currentNode = root;
@@ -76,7 +82,7 @@ public class Trie
         _printTrieNodes(root);
     }
 
-    private void _printTrieNodes(TrieNode root, string format = " ", bool isLastChild = true) 
+    private void _printTrieNodes(TrieNode root, string format = " ", bool isLastChild = true)
     {
         if (root == null)
             return;
@@ -100,7 +106,7 @@ public class Trie
         int i = 0;
         var children = root.Children.OrderBy(x => x.Key);
 
-        foreach(var child in children)
+        foreach (var child in children)
         {
             i++;
             bool isLast = i == childCount;
@@ -113,7 +119,7 @@ public class Trie
         char firstLetter = word[0];
         List<string> suggestions = new();
         List<string> words = GetAllWordsWithPrefix(root.Children[firstLetter], firstLetter.ToString());
-        
+
         foreach (string w in words)
         {
             int distance = LevenshteinDistance(word, w);
