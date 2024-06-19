@@ -52,6 +52,11 @@ public class Trie
         return true;
     }
 
+    /// <summary>
+    /// Retrieves a list of suggested words based on the given prefix.
+    /// </summary>
+    /// <param name="prefix">The prefix to search for.</param>
+    /// <returns>A list of suggested words.</returns>
     public List<string> AutoSuggest(string prefix)
     {
         TrieNode currentNode = root;
@@ -66,6 +71,12 @@ public class Trie
         return GetAllWordsWithPrefix(currentNode, prefix);
     }
 
+    /// <summary>
+    /// Retrieves a list of all words in the trie that have the specified prefix.
+    /// </summary>
+    /// <param name="root">The root node of the trie.</param>
+    /// <param name="prefix">The prefix to search for.</param>
+    /// <returns>A list of words with the specified prefix.</returns>
     private List<string> GetAllWordsWithPrefix(TrieNode root, string prefix)
     {
         return null;
