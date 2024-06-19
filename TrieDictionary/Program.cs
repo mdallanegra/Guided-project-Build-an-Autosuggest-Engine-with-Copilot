@@ -9,7 +9,7 @@ string[] words = {
         "the", "their", "they", "there", "towards"};
 
 Trie dictionary = InitializeTrie(words);
-// SearchWord();
+SearchWord();
 // PrefixAutocomplete();
 // DeleteWord();
 // GetSpellingSuggestions();
@@ -39,12 +39,12 @@ void SearchWord()
         {
             break;
         }
-        /*
+        
         if (input != null && dictionary.Search(input))
         {
             Console.WriteLine($"Found \"{input}\" in dictionary");
         }
-        */
+        
         else
         {
             Console.WriteLine($"Did not find \"{input}\" in dictionary");
@@ -58,10 +58,10 @@ void PrefixAutocomplete()
     GetPrefixInput();
 }
 
-void DeleteWord() 
+void DeleteWord()
 {
     PrintTrie(dictionary);
-    while(true)
+    while (true)
     {
         Console.WriteLine("\nEnter a word to delete, or press Enter to exit.");
         string? input = Console.ReadLine();
@@ -84,7 +84,7 @@ void DeleteWord()
     }
 }
 
-void GetSpellingSuggestions() 
+void GetSpellingSuggestions()
 {
     PrintTrie(dictionary);
     Console.WriteLine("\nEnter a word to get spelling suggestions for, or press Enter to exit.");
@@ -97,7 +97,7 @@ void GetSpellingSuggestions()
         {
             Console.WriteLine("No suggestions found.");
         }
-        else 
+        else
         {
             foreach (var word in similarWords)
             {
@@ -118,7 +118,7 @@ void RunAllExercises()
 
 void GetPrefixInput()
 {
-    Console.WriteLine("\nEnter a prefix to search for, then press Tab to " + 
+    Console.WriteLine("\nEnter a prefix to search for, then press Tab to " +
                       "cycle through search results. Press Enter to exit.");
 
     bool running = true;
@@ -127,7 +127,7 @@ void GetPrefixInput()
     List<string>? words = null;
     int wordsIndex = 0;
 
-    while(running)
+    while (running)
     {
         var input = Console.ReadKey(true);
 
@@ -137,7 +137,7 @@ void GetPrefixInput()
             prefix = "";
             sb.Append(' ');
             continue;
-        } 
+        }
         else if (input.Key == ConsoleKey.Backspace && Console.CursorLeft > 0)
         {
             Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
@@ -157,14 +157,16 @@ void GetPrefixInput()
         {
             string previousWord = sb.ToString().Split(' ').Last();
 
-            if (words != null) {
+            if (words != null)
+            {
                 if (!previousWord.Equals(words[wordsIndex - 1]))
                 {
                     words = dictionary.AutoSuggest(prefix);
                     wordsIndex = 0;
                 }
-            } 
-            else {
+            }
+            else
+            {
                 words = dictionary.AutoSuggest(prefix);
                 wordsIndex = 0;
             }
@@ -176,8 +178,8 @@ void GetPrefixInput()
                 Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
                 sb.Remove(sb.Length - 1, 1);
             }
-        
-            
+
+
             if (words.Count > 0 && wordsIndex < words.Count)
             {
                 string output = words[wordsIndex++];
